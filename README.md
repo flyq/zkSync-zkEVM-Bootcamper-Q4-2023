@@ -10,6 +10,9 @@
   - [Lesson 3 - Introduction to Layer 2](#lesson-3---introduction-to-layer-2)
     - [Course](#course-2)
     - [Homework](#homework-2)
+  - [Lesson 4 - Maths and Cryptograph](#lesson-4---maths-and-cryptograph)
+    - [Course](#course-3)
+    - [Homework](#homework-3)
 
 ## Lesson 1 Introduction to Blockchain and Layer 1
 
@@ -49,3 +52,33 @@ some rust, detail of evm
 ### Homework
 
 https://github.com/flyq/zkEVMBootcamp
+
+## Lesson 4 - Maths and Cryptograph
+
+### Course
+
+modular arithmetic
+
+poly and soon
+
+### Homework
+1. Working with the following set of Integers S= {0,1,2,3,4,5,6}
+What is 
+a) 4 + 4 = 1 mod 7
+b) 3x5 = 1 mod 7
+c) what is the inverse of 3 under
+  i) addition -3 = 4 mod 7
+  ii) multiplication $3^{-1} = 5 mod 7$
+
+2. For S = {0,1,2,3,4,5,6}
+Can we consider 'S' and the operation '+' to be a group?
+yes
+
+3. What is -13 mod 5 ?
+   2
+4. Polynomials
+For the polynomial $×^3 - x^2 + 4х — 12$
+Find a positive root
+2
+What is the degree of this polynomial?
+3
