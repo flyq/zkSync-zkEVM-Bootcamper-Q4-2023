@@ -13,6 +13,12 @@
   - [Lesson 4 - Maths and Cryptograph](#lesson-4---maths-and-cryptograph)
     - [Course](#course-3)
     - [Homework](#homework-3)
+  - [Lesson 5 - Understanding and Analysing Layer 2](#lesson-5---understanding-and-analysing-layer-2)
+    - [Course](#course-4)
+    - [Homework](#homework-4)
+  - [Lesson 6](#lesson-6)
+    - [Course](#course-5)
+    - [homework](#homework-5)
 
 ## Lesson 1 Introduction to Blockchain and Layer 1
 
@@ -82,3 +88,38 @@ Find a positive root
 2
 What is the degree of this polynomial?
 3
+
+## Lesson 5 - Understanding and Analysing Layer 2
+
+### Course
+通用 Layer2:
+Arbitrum one
+Optimism
+Boba
+Starknet
+
+特定 Layer2:
+Loopring
+zkSync
+Aztec
+
+不同阶段：
+0. 完整训练轮：完全由操作员操作
+1. 有限训练轮：存在中心化治理，解决潜在错误
+2. 无辅助阶段：完全由智能合约管理
+
+
+### Homework
+
+https://zeroknowledge.fm/151-2/
+
+## Lesson 6
+
+### Course
+
+L2 components and transaction lifecycle
+L2 rollup process
+
+### homework
+
+see `./src/bootcamp`

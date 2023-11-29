@@ -1,0 +1,11 @@
+[workspace]
+members = ["src/bootcamp"]
+resolver = "2"
+
+
+[workspace.dependencies]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
