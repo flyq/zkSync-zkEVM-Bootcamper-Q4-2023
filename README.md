@@ -18,7 +18,13 @@
     - [Homework](#homework-4)
   - [Lesson 6](#lesson-6)
     - [Course](#course-5)
-    - [homework](#homework-5)
+    - [Homework](#homework-5)
+  - [Lesson 7](#lesson-7)
+    - [Course](#course-6)
+    - [Homework](#homework-6)
+  - [Lesson 8](#lesson-8)
+    - [Course](#course-7)
+    - [Homework](#homework-7)
 
 ## Lesson 1 Introduction to Blockchain and Layer 1
 
@@ -120,6 +126,41 @@ https://zeroknowledge.fm/151-2/
 L2 components and transaction lifecycle
 L2 rollup process
 
-### homework
+### Homework
 
 see `./src/bootcamp`
+
+## Lesson 7
+
+### Course
+
+what is optimistic rollup vs zk rollup?
+what is Snark
+
+### Homework
+
+https://github.com/flyq/zkEVMBootcamp
+
+## Lesson 8
+
+### Course
+What's next in Layer 2 part 1 : Decentralised Sequencers
+
+### Homework
+
+$p(x) = x^3 - 5x^2 - 4x + 20$
+   
+a. find an integer root $a$, i.e. $p(a) = 0$(clue $a<7$)
+
+using sagemath: 
+```sage
+x = var("x")
+p = x^3 - 5*x^2 -4*x +20
+p.roots()
+# [(2, 1), (-2, 1), (5, 1)]
+```
+so $a = 5 \ \text{or} \ 2 \ \text{or} \ -2$
+
+b. $p(x) = (x-a)q(x)$, the degree?
+
+$q(x) = x^2 -4$, and degree of $q(x)$ is $2$, and the degree of $p(x)$ is $3$
