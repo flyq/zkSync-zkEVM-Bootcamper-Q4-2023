@@ -25,6 +25,18 @@
   - [Lesson 8](#lesson-8)
     - [Course](#course-7)
     - [Homework](#homework-7)
+  - [Lesson 9](#lesson-9)
+    - [Course](#course-8)
+    - [Homework](#homework-8)
+  - [Lesson 10](#lesson-10)
+    - [Course](#course-9)
+    - [Homework](#homework-9)
+  - [Lesson 11](#lesson-11)
+    - [Course](#course-10)
+    - [Homework](#homework-10)
+  - [Lesson 12](#lesson-12)
+    - [Course](#course-11)
+    - [Homework](#homework-11)
 
 ## Lesson 1 Introduction to Blockchain and Layer 1
 
@@ -144,7 +156,7 @@ https://github.com/flyq/zkEVMBootcamp
 ## Lesson 8
 
 ### Course
-What's next in Layer 2 part 1 : Decentralised Sequencers
+What's next in Layer 2 part 1: Decentralised Sequencers
 
 ### Homework
 
@@ -155,7 +167,7 @@ a. find an integer root $a$, i.e. $p(a) = 0$(clue $a<7$)
 using sagemath: 
 ```sage
 x = var("x")
-p = x^3 - 5*x^2 -4*x +20
+p = x^3 - 5*x^2 - 4*x + 20
 p.roots()
 # [(2, 1), (-2, 1), (5, 1)]
 ```
@@ -164,3 +176,60 @@ so $a = 5 \ \text{or} \ 2 \ \text{or} \ -2$
 b. $p(x) = (x-a)q(x)$, the degree?
 
 $q(x) = x^2 -4$, and degree of $q(x)$ is $2$, and the degree of $p(x)$ is $3$
+
+## Lesson 9
+
+What's next in Layer 2 part 2: L3s/Hyperchains
+
+### Course
+
+zkSync's zkStack, hyperchain, customized chain.
+
+### Homework
+
+https://zeroknowledge.fm/299-2/
+
+## Lesson 10
+
+Privacy in Layer 2
+
+### Course
+
+Aztec
+Zama.ai
+Namada
+Obscuro
+Penumbra
+Anoma
+
+### Homework
+
+https://github.com/flyq/zkEVMBootcamp/commit/f1a8b6593bc25031039c788d8ad19f691bec7a17
+
+## Lesson 11
+
+What are the ZK EVMs part 1 - overview
+
+### Course
+
+### Homework
+
+https://www.youtube.com/watch?v=bGEXYpt3sj0&list=PLS01nW3Rtgor_yJmQsGBZAg5XM4TSGpPs&index=3
+
+## Lesson 12
+
+What are the ZK EVMs part 2 - universal circuits/circuit compiler
+
+### Course
+
+### Homework
+1. https://www.youtube.com/watch?v=AX7eAzfSB6w
+2. answer
+   1. $(w+1)\times (w+3) = O_3$
+   2. w = 3 / -7
+   3. G1: $w + 1 = O_1$ G2: $w + 3 = O_2$ G3: $O_1 \times O_2 = O_3$
+   4. $$\left\{\begin{matrix} (w + 1)S_1 + w \cdot 1 \cdot (1-S_1) - O_1 = 0 \\ (w + 3)S_2 + w \cdot 3 \cdot (1-S_2) - O_2 = 0 \\ (O_1 + O_2) S_3 + O_1 \cdot O_2 \cdot (1 - S_3) - O_3 = 0 \end{matrix}\right.$$ 
+   and $S_1 = 1, S_2 = 1, S_3 = 0$ 
+
+
+
