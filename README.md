@@ -37,6 +37,13 @@
   - [Lesson 12](#lesson-12)
     - [Course](#course-11)
     - [Homework](#homework-11)
+  - [Lesson 13](#lesson-13)
+    - [Course](#course-12)
+    - [Homework](#homework-12)
+  - [Lesson 14](#lesson-14)
+    - [Course](#course-13)
+    - [Homework](#homework-13)
+  - [Lesson 15](#lesson-15)
 
 ## Lesson 1 Introduction to Blockchain and Layer 1
 
@@ -231,5 +238,21 @@ What are the ZK EVMs part 2 - universal circuits/circuit compiler
    4. $$\left\{\begin{matrix} (w + 1)S_1 + w \cdot 1 \cdot (1-S_1) - O_1 = 0 \\ (w + 3)S_2 + w \cdot 3 \cdot (1-S_2) - O_2 = 0 \\ (O_1 + O_2) S_3 + O_1 \cdot O_2 \cdot (1 - S_3) - O_3 = 0 \end{matrix}\right.$$ 
    and $S_1 = 1, S_2 = 1, S_3 = 0$ 
 
+## Lesson 13
 
+### Course
+
+### Homework
+
+https://github.com/flyq/zkEVMBootcamp/commit/e9613efa0015063cd7f5a29a1e5289bfb6bb1f88
+
+## Lesson 14
+
+### Course
+
+### Homework
+
+[hw14](./src/hw14/)
+
+## Lesson 15
 

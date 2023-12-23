@@ -1,5 +1,5 @@
 [workspace]
-members = ["src/bootcamp"]
+members = ["src/bootcamp", "src/hw14"]
 resolver = "2"
 
 
