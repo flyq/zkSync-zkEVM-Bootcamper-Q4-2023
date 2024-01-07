@@ -6,10 +6,16 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ark-std = { version = "0.4" }
 ark-crypto-primitives = { version = "0.4", features = [
     "crh",
     "r1cs",
     "merkle_tree",
 ] }
 ark-ed-on-bls12-381 = { version = "0.4", features = ["r1cs"] }
+ark-relations = { version = "0.4" }
+ark-r1cs-std = { vedrsion = "0.4" }
+ark-std = { version = "0.4" }
+tracing = { version = "0.1", default-features = false, features = [
+    "attributes",
+] }
+tracing-subscriber = { version = "0.2" }

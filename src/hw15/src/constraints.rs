@@ -1,26 +1,19 @@
-use crate::types::*;
-use crate::{Root, SimplePath};
-use ark_crypto_primitives::crh::{CRHScheme, TwoToOneCRHScheme, TwoToOneCRHSchemeGadget};
-use ark_crypto_primitives::merkle_tree::constraints::PathVar;
-use ark_r1cs_std::prelude::*;
+use ark_crypto_primitives::crh::{CRHScheme, TwoToOneCRHScheme};
+use ark_r1cs_std::alloc::AllocVar;
+use ark_r1cs_std::boolean::Boolean;
+use ark_r1cs_std::eq::EqGadget;
+use ark_r1cs_std::prelude::UInt8;
 use ark_relations::r1cs::{ConstraintSynthesizer, ConstraintSystemRef, SynthesisError};
 
-// (You don't need to worry about what's going on in the next two type definitions,
-// just know that these are types that you can use.)
-
-/// The R1CS equivalent of the the Merkle tree root.
-pub type RootVar = <TwoToOneHashGadget as TwoToOneCRHGadget<TwoToOneHash, ConstraintF>>::OutputVar;
-
-/// The R1CS equivalent of the the Merkle tree path.
-pub type SimplePathVar =
-    PathVar<crate::MerkleConfig, LeafHashGadget, TwoToOneHashGadget, ConstraintF>;
-
-////////////////////////////////////////////////////////////////////////////////
+use crate::types::{
+    ConstraintF, LeafHash, LeafHashParamsVar, Root, RootVar, SimplePath, SimplePathVar,
+    TwoToOneHash, TwoToOneHashParamsVar,
+};
 
 pub struct MerkleTreeVerification {
     // These are constants that will be embedded into the circuit
-    pub leaf_crh_params: <LeafHash as CRH>::Parameters,
-    pub two_to_one_crh_params: <TwoToOneHash as TwoToOneCRH>::Parameters,
+    pub leaf_crh_params: <LeafHash as CRHScheme>::Parameters,
+    pub two_to_one_crh_params: <TwoToOneHash as TwoToOneCRHScheme>::Parameters,
 
     // These are the public inputs to the circuit.
     pub root: Root,
@@ -38,7 +31,7 @@ impl ConstraintSynthesizer<ConstraintF> for MerkleTreeVerification {
         // First, we allocate the public inputs
         let root = RootVar::new_input(ark_relations::ns!(cs, "root_var"), || Ok(&self.root))?;
 
-        let leaf = UInt8::new_input(ark_relations::ns!(cs, "leaf_var"), || Ok(&self.leaf))?;
+        let leaf = UInt8::new_input_vec(ark_relations::ns!(cs, "leaf_var"), &[self.leaf])?;
 
         // Then, we allocate the public parameters as constants:
         let leaf_crh_params = LeafHashParamsVar::new_constant(cs.clone(), &self.leaf_crh_params)?;
@@ -50,15 +43,15 @@ impl ConstraintSynthesizer<ConstraintF> for MerkleTreeVerification {
             Ok(self.authentication_path.as_ref().unwrap())
         })?;
 
-        let leaf_bytes = vec![leaf; 1];
+        // let leaf_bytes = vec![leaf; 1];
 
         // Now, we have to check membership. How do we do that?
         // Hint: look at https://github.com/arkworks-rs/crypto-primitives/blob/6be606259eab0aec010015e2cfd45e4f134cd9bf/src/merkle_tree/constraints.rs#L135
 
-        // TODO: FILL IN THE BLANK!
-        // let is_member = XYZ
-        //
-        // is_member.enforce_equal(&Boolean::TRUE)?;
+        let is_member =
+            path.verify_membership(&leaf_crh_params, &two_to_one_crh_params, &root, &leaf)?;
+
+        is_member.enforce_equal(&Boolean::TRUE)?;
 
         Ok(())
     }

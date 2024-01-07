@@ -1,47 +1,34 @@
-use ark_crypto_primitives::crh::TwoToOneCRHScheme;
-use ark_crypto_primitives::merkle_tree::{Config, MerkleTree, Path};
+use ark_crypto_primitives::crh::{CRHScheme, TwoToOneCRHScheme};
+use ark_relations::r1cs::ConstraintSynthesizer;
+use tracing_subscriber::layer::SubscriberExt;
 
-use crate::types::{LeafHash, TwoToOneHash};
+use crate::constraints::MerkleTreeVerification;
+use crate::types::{LeafHash, SimpleMerkleTree, TwoToOneHash};
 
 mod constraints;
 mod types;
 
-#[derive(Clone)]
-pub struct MerkleConfig;
-impl Config for MerkleConfig {
-    // Our Merkle tree relies on two hashes: one to hash leaves, and one to hash pairs
-    // of internal nodes.
-    type LeafHash = LeafHash;
-    type TwoToOneHash = TwoToOneHash;
-}
-
-/// A Merkle tree containing account information.
-pub type SimpleMerkleTree = MerkleTree<MerkleConfig>;
-/// The root of the account Merkle tree.
-pub type Root = <TwoToOneHash as TwoToOneCRH>::Output;
-/// A membership proof for a given account.
-pub type SimplePath = Path<MerkleConfig>;
-
 fn main() {
-    println!("Hello, world!");
+    test_merkle_tree();
+    merkle_tree_constraints_correctness();
+    merkle_tree_constraints_soundness();
 }
 
 fn test_merkle_tree() {
-    use ark_crypto_primitives::crh::CRHScheme;
     // Let's set up an RNG for use within tests. Note that this is *not* safe
     // for any production use.
     let mut rng = ark_std::test_rng();
 
     // First, let's sample the public parameters for the hash functions:
-    let leaf_crh_params = <LeafHash as CRH>::setup(&mut rng).unwrap();
-    let two_to_one_crh_params = <TwoToOneHash as TwoToOneCRH>::setup(&mut rng).unwrap();
+    let leaf_crh_params = <LeafHash as CRHScheme>::setup(&mut rng).unwrap();
+    let two_to_one_crh_params = <TwoToOneHash as TwoToOneCRHScheme>::setup(&mut rng).unwrap();
 
     // Next, let's construct our tree.
     // This follows the API in https://github.com/arkworks-rs/crypto-primitives/blob/6be606259eab0aec010015e2cfd45e4f134cd9bf/src/merkle_tree/mod.rs#L156
     let tree = SimpleMerkleTree::new(
         &leaf_crh_params,
         &two_to_one_crh_params,
-        &[1u8, 2u8, 3u8, 10u8, 9u8, 17u8, 70u8, 45u8], // the i-th entry is the i-th leaf.
+        [[1], [2], [3], [10], [9], [17], [70], [45]], // the i-th entry is the i-th leaf.
     )
     .unwrap();
 
@@ -57,7 +44,7 @@ fn test_merkle_tree() {
             &leaf_crh_params,
             &two_to_one_crh_params,
             &root,
-            &[9u8], // The claimed leaf
+            [9u8], // The claimed leaf
         )
         .unwrap();
     assert!(result);
@@ -65,22 +52,21 @@ fn test_merkle_tree() {
 
 fn merkle_tree_constraints_correctness() {
     use ark_relations::r1cs::{ConstraintLayer, ConstraintSystem, TracingMode};
-    use tracing_subscriber::layer::SubscriberExt;
 
     // Let's set up an RNG for use within tests. Note that this is *not* safe
     // for any production use.
     let mut rng = ark_std::test_rng();
 
     // First, let's sample the public parameters for the hash functions:
-    let leaf_crh_params = <LeafHash as CRH>::setup(&mut rng).unwrap();
-    let two_to_one_crh_params = <TwoToOneHash as TwoToOneCRH>::setup(&mut rng).unwrap();
+    let leaf_crh_params = <LeafHash as CRHScheme>::setup(&mut rng).unwrap();
+    let two_to_one_crh_params = <TwoToOneHash as TwoToOneCRHScheme>::setup(&mut rng).unwrap();
 
     // Next, let's construct our tree.
     // This follows the API in https://github.com/arkworks-rs/crypto-primitives/blob/6be606259eab0aec010015e2cfd45e4f134cd9bf/src/merkle_tree/mod.rs#L156
-    let tree = crate::SimpleMerkleTree::new(
+    let tree = SimpleMerkleTree::new(
         &leaf_crh_params,
         &two_to_one_crh_params,
-        &[1u8, 2u8, 3u8, 10u8, 9u8, 17u8, 70u8, 45u8], // the i-th entry is the i-th leaf.
+        [[1], [2], [3], [10], [9], [17], [70], [45]], // the i-th entry is the i-th leaf.
     )
     .unwrap();
 
@@ -123,30 +109,29 @@ fn merkle_tree_constraints_correctness() {
 
 fn merkle_tree_constraints_soundness() {
     use ark_relations::r1cs::{ConstraintLayer, ConstraintSystem, TracingMode};
-    use tracing_subscriber::layer::SubscriberExt;
 
     // Let's set up an RNG for use within tests. Note that this is *not* safe
     // for any production use.
     let mut rng = ark_std::test_rng();
 
     // First, let's sample the public parameters for the hash functions:
-    let leaf_crh_params = <LeafHash as CRH>::setup(&mut rng).unwrap();
-    let two_to_one_crh_params = <TwoToOneHash as TwoToOneCRH>::setup(&mut rng).unwrap();
+    let leaf_crh_params = <LeafHash as CRHScheme>::setup(&mut rng).unwrap();
+    let two_to_one_crh_params = <TwoToOneHash as TwoToOneCRHScheme>::setup(&mut rng).unwrap();
 
     // Next, let's construct our tree.
     // This follows the API in https://github.com/arkworks-rs/crypto-primitives/blob/6be606259eab0aec010015e2cfd45e4f134cd9bf/src/merkle_tree/mod.rs#L156
-    let tree = crate::SimpleMerkleTree::new(
+    let tree = SimpleMerkleTree::new(
         &leaf_crh_params,
         &two_to_one_crh_params,
-        &[1u8, 2u8, 3u8, 10u8, 9u8, 17u8, 70u8, 45u8], // the i-th entry is the i-th leaf.
+        [[1], [2], [3], [10], [9], [17], [70], [45]], // the i-th entry is the i-th leaf.
     )
     .unwrap();
 
     // We just mutate the first leaf
-    let second_tree = crate::SimpleMerkleTree::new(
+    let second_tree = SimpleMerkleTree::new(
         &leaf_crh_params,
         &two_to_one_crh_params,
-        &[4u8, 2u8, 3u8, 10u8, 9u8, 17u8, 70u8, 45u8], // the i-th entry is the i-th leaf.
+        [[4], [2], [3], [10], [9], [17], [70], [45]], // the i-th entry is the i-th leaf.
     )
     .unwrap();
 
