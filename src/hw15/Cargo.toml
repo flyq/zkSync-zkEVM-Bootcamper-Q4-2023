@@ -1,0 +1,15 @@
+[package]
+name = "hw15"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ark-std = { version = "0.4" }
+ark-crypto-primitives = { version = "0.4", features = [
+    "crh",
+    "r1cs",
+    "merkle_tree",
+] }
+ark-ed-on-bls12-381 = { version = "0.4", features = ["r1cs"] }
