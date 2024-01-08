@@ -49,6 +49,9 @@
   - [Lesson 16](#lesson-16)
     - [Course](#course-15)
     - [Homework](#homework-15)
+  - [Lesson 17](#lesson-17)
+    - [Course](#course-16)
+    - [Homework](#homework-16)
 
 ## Lesson 1 Introduction to Blockchain and Layer 1
 
@@ -274,3 +277,9 @@ https://github.com/flyq/zkEVMBootcamp/commit/e9613efa0015063cd7f5a29a1e5289bfb6b
 
 ### Homework
 also in: [hw15](./src/hw15/)
+
+## Lesson 17
+
+### Course
+
+### Homework
